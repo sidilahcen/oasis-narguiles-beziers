@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Oasis - Boutique de narguilés et accessoires à Béziers</title>
-    <meta name="description" content="Boutique spécialisée dans la vente de narguilés, chichas, tabacs et accessoires à Béziers. Découvrez nos produits de qualité et conseils experts !">
+    <title>L'Oasis - Bar & Boutique de Narguilés à Béziers depuis 2007</title>
+    <meta name="description" content="L'Oasis, référence du narguilé à Béziers depuis 2007 : bar à chicha convivial et boutique spécialisée. Découvrez nos narguilés professionnels, tabacs premium et accessoires.">
+    <meta name="keywords" content="narguilé Béziers, bar chicha, boutique narguilé, charbon chicha, tabac sans nicotine, Khalil Mamoon">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -36,16 +37,16 @@
             text-decoration: none;
             color: #333;
         }
-        .products {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+        .history, .products, .contact-info {
             margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 5px;
         }
         .product {
             border: 1px solid #ddd;
             padding: 15px;
-            width: 30%;
+            margin: 10px 0;
         }
         footer {
             text-align: center;
@@ -53,75 +54,84 @@
             padding: 20px;
             background: #f4f4f4;
         }
-        .contact-info {
-            margin: 20px 0;
+        .hours {
+            margin-top: 15px;
+        }
+        .hours li {
+            list-style-type: none;
+            padding: 5px 0;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>L'Oasis</h1>
-        <p>Vente de narguilés et accessoires à Béziers</p>
-        <!-- Remplacez par votre vrai logo -->
-        <img src="logo.jpg" alt="Logo L'Oasis Béziers" class="logo">
+        <p>Bar & Boutique de Narguilés - Béziers depuis 2007</p>
+        <img src="images/logo.jpg" alt="Logo L'Oasis Béziers" class="logo">
     </header>
 
     <nav>
+        <a href="#histoire">Notre Histoire</a>
         <a href="#produits">Nos Produits</a>
         <a href="#contact">Contact</a>
-        <a href="#horaires">Horaires</a>
     </nav>
 
-    <section id="accueil">
-        <h2>Bienvenue chez L'Oasis</h2>
-        <p> "L'Oasis : L'Adresse Mythique des Amateurs de Chicha à Béziers depuis 2007**  
-
-Fondé en 2007 comme bar à chicha convivial, L'Oasis s'est transformé en **référence incontournable** en 2016 avec l'ouverture de sa boutique spécialisée.  
-
-🔹 **Notre expertise** :  
-- Vente de **narguilés haut de gamme** (Khalil Mamoon, Amy Deluxe, Oduman...)  
-- **Accessoires complets** : Charbons naturels, pipes, diffuseurs, embouts jetables  
-- **Tabacs et goûts premium** : Large choix de saveurs avec ou sans nicotine  
-- **Conseils personnalisés** : Un savoir-faire acquis depuis 15 ans  
-
-📍 **Situé en plein cœur de Béziers**, nous accueillons les passionnés comme les curieux dans une ambiance chaleureuse et authentique.  
-
-🚀 *Retrouvez-nous pour vivre l'expérience L'Oasis : qualité, partage et convivialité !*"</p>
+    <section id="histoire" class="history">
+        <h2>Notre Histoire</h2>
+        <p><strong>L'Oasis : L'Adresse Mythique des Amateurs de Chicha à Béziers depuis 2007</strong></p>
+        <p>Fondé en 2007 comme bar à chicha convivial, L'Oasis s'est transformé en <strong>référence incontournable</strong> en 2016 avec l'ouverture de sa boutique spécialisée.</p>
         
-        <div class="products" id="produits">
-            <div class="product">
-                <h3>Narguilés Classiques</h3>
-                <p>Des modèles traditionnels et modernes pour tous les goûts.</p>
-            </div>
-            <div class="product">
-                <h3>Tabacs à chicha</h3>
-                <p>Grand choix de saveurs et marques premium.</p>
-            </div>
-            <div class="product">
-                <h3>Accessoires</h3>
-                <p>Charbons, embouts, plateaux et pièces détachées.</p>
-            </div>
+        <h3>Notre expertise</h3>
+        <ul>
+            <li>Vente de <strong>narguilés haut de gamme</strong> (Khalil Mamoon, Amy Deluxe, Oduman...)</li>
+            <li><strong>Accessoires complets</strong> : Charbons naturels, pipes, diffuseurs, embouts jetables</li>
+            <li><strong>Tabacs et goûts premium</strong> : Large choix de saveurs avec ou sans nicotine</li>
+            <li><strong>Conseils personnalisés</strong> : Un savoir-faire acquis depuis 15 ans</li>
+        </ul>
+    </section>
+
+    <section id="produits" class="products">
+        <h2>Nos Produits</h2>
+        <div class="product">
+            <h3>Narguilés Professionnels</h3>
+            <p>Des modèles traditionnels aux designs modernes, pour débutants et experts.</p>
+        </div>
+        <div class="product">
+            <h3>Tabacs & Saveurs</h3>
+            <p>Une sélection de goûts fruités, mentholés ou exotiques, avec ou sans nicotine.</p>
+        </div>
+        <div class="product">
+            <h3>Accessoires</h3>
+            <p>Tout pour entretenir et sublimer votre narguilé : charbons, embouts, plateaux...</p>
         </div>
     </section>
 
     <section id="contact" class="contact-info">
-        <h2>Nous trouver</h2>
-        <p><strong>Adresse :</strong> [26 Avenue Maréchal Joffre ], Béziers</p>
-        <p><strong>Téléphone :</strong> <a href="tel:+33617100445">[+33617100445]</a></p>
-        <p><strong>Email :</strong> <a href="mailto:oasis.chicha@gmail.com">oasis.chicha@gmail.com</a></p>
-    </section>
+        <h2>Contact</h2>
+        <p><strong>Adresse :</strong> 26 avenue Maréchal Joffre, 34500 Béziers</p>
+        <p><strong>Téléphone :</strong> <a href="tel:+33617100445">06 17 10 04 45</a></p>
+        
+        <div class="hours">
+            <h3>Horaires d'ouverture :</h3>
+            <ul>
+                <li><strong>Mardi à Dimanche</strong> : 16h - 01h00</li>
+                <li><strong>Lundi</strong> : Fermé</li>
+            </ul>
+        </div>
 
-    <section id="horaires">
-        <h2>Horaires d'ouverture</h2>
-        <ul>
-            <li>Mardi-Dimanche : 16h-01h</li>
-    
-            <li>Lundi : Fermé</li>
-        </ul>
+        <!-- Intégration Google Maps -->
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2885.899346231515!2d3.2154543153653064!3d43.66825297912078!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12b6af5e55a96e13%3A0x1e1f3e5e1b9b9b9b!2s26%20Avenue%20Mar%C3%A9chal%20Joffre%2C%2034500%20B%C3%A9ziers!5e0!3m2!1sfr!2sfr!4v1620000000000!5m2!1sfr!2sfr" 
+            width="100%" 
+            height="300" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy">
+        </iframe>
     </section>
 
     <footer>
-        <p>© 2023 L'Oasis - Boutique de narguilés à Béziers</p>
+        <p>© 2023 L'Oasis - Bar & Boutique de Narguilés à Béziers</p>
         <p>
             <a href="https://g.co/kgs/wUK8j6E" target="_blank">Notre fiche Google</a> | 
             <a href="https://www.facebook.com/[votre-page]" target="_blank">Facebook</a>

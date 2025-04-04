@@ -234,7 +234,267 @@
                 return;
             }
 
+            // Envo<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réservation Chicha - L'Oasis Béziers</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #e67e22;
+            text-align: center;
+        }
+        .reservation-form {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        select, input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #e67e22;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background: #d35400;
+        }
+        .price-display {
+            font-weight: bold;
+            color: #e67e22;
+            margin-top: 5px;
+        }
+        .model-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .model-option {
+            border: 2px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            width: calc(50% - 20px);
+        }
+        .model-option:hover {
+            border-color: #e67e22;
+        }
+        .model-option.selected {
+            border-color: #e67e22;
+            background: #fff8f0;
+        }
+        .model-option img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+        .hidden {
+            display: none;
+        }
+        #confirmation {
+            text-align: center;
+            padding: 20px;
+            background: #e8f5e9;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Réserver votre chicha</h1>
+    
+    <div class="reservation-form">
+        <form id="chicha-reservation" action="https://formsubmit.io/send/votre-email@gmail.com" method="POST">
+            <input type="hidden" name="_redirect" value="https://sidilahcen.github.io/oasis-narguiles-beziers-/merci.html">
+            <input type="hidden" name="_subject" value="Nouvelle réservation L'Oasis">
+            
+            <div class="form-group">
+                <label for="name">Votre nom *</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Téléphone *</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="date">Date de réservation *</label>
+                <input type="text" id="date" name="date" class="calendar" placeholder="Choisir une date" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="time">Heure *</label>
+                <select id="time" name="time" required>
+                    <option value="">-- Sélectionnez --</option>
+                    <option value="16:00">16:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="18:00">18:00</option>
+                    <option value="19:00">19:00</option>
+                    <option value="20:00">20:00</option>
+                    <option value="21:00">21:00</option>
+                    <option value="22:00">22:00</option>
+                    <option value="23:00">23:00</option>
+                    <option value="00:00">00:00</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Modèle de chicha *</label>
+                <div class="model-gallery">
+                    <div class="model-option" data-value="provost" data-price="15">
+                        <img src="images/provost.jpg" alt="Chicha Provost">
+                        <p>Provost - 15€</p>
+                    </div>
+                    <div class="model-option" data-value="kaloud" data-price="12">
+                        <img src="images/kaloud.jpg" alt="Chicha Kaloud">
+                        <p>Kaloud - 12€</p>
+                    </div>
+                    <div class="model-option" data-value="brohood" data-price="12">
+                        <img src="images/brohood.jpg" alt="Chicha Brohood">
+                        <p>Brohood - 12€</p>
+                    </div>
+                    <div class="model-option" data-value="tete_plate" data-price="10">
+                        <img src="images/tete-plate.jpg" alt="Chicha Tête plate">
+                        <p>Tête plate - 10€</p>
+                    </div>
+                </div>
+                <input type="hidden" id="model" name="model" required>
+                <div id="price" class="price-display"></div>
+            </div>
+            
+            <div class="form-group">
+                <label for="flavor">Goût principal *</label>
+                <select id="flavor" name="flavor" required>
+                    <option value="">-- Sélectionnez --</option>
+                    <option value="menthe">Menthe</option>
+                    <option value="pomme">Pomme</option>
+                    <option value="citron">Citron</option>
+                    <option value="love66">Love 66</option>
+                    <option value="autre">Autre (précisez ci-dessous)</option>
+                </select>
+            </div>
+            
+            <div class="form-group" id="custom-flavor-group" style="display:none;">
+                <label for="custom-flavor">Précisez votre goût</label>
+                <input type="text" id="custom-flavor" name="custom_flavor">
+            </div>
+            
+            <div class="form-group">
+                <label for="notes">Demandes spéciales</label>
+                <textarea id="notes" name="notes" rows="3" placeholder="Nombre de personnes, préférences particulières..."></textarea>
+            </div>
+            
+            <button type="submit">Réserver maintenant</button>
+        </form>
+        
+        <div id="confirmation" class="hidden">
+            <h2>Merci pour votre réservation !</h2>
+            <p>Nous vous confirmons par SMS dans les 30 minutes.</p>
+            <p>À bientôt à L'Oasis !</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+    <script>
+        // Configuration du calendrier
+        flatpickr(".calendar", {
+            locale: "fr",
+            minDate: "today",
+            maxDate: new Date().fp_incr(14), // 2 semaines à l'avance
+            disable: [
+                function(date) {
+                    // Désactiver les lundis
+                    return (date.getDay() === 1);
+                }
+            ]
+        });
+
+        // Gestion des modèles
+        const modelOptions = document.querySelectorAll('.model-option');
+        let selectedModel = null;
+
+        modelOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                modelOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                selectedModel = this;
+                document.getElementById('model').value = this.dataset.value;
+                document.getElementById('price').textContent = 'Prix : ' + this.dataset.price + '€';
+            });
+        });
+
+        // Gestion des goûts personnalisés
+        document.getElementById('flavor').addEventListener('change', function() {
+            const customFlavorGroup = document.getElementById('custom-flavor-group');
+            customFlavorGroup.style.display = (this.value === 'autre') ? 'block' : 'none';
+        });
+
+        // Envoi du formulaire
+        document.getElementById('chicha-reservation').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!selectedModel) {
+                alert('Veuillez sélectionner un modèle de chicha');
+                return;
+            }
+
             // Envoi via FormSubmit (remplacer par votre email)
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('chicha-reservation').classList.add('hidden');
+                    document.getElementById('confirmation').classList.remove('hidden');
+                } else {
+                    alert("Une erreur s'est produite. Veuillez nous appeler au 06 17 10 04 45");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Problème de connexion. Veuillez réessayer.");
+            });
+        });
+    </script>
+</body>
+</html>
+i via FormSubmit (remplacer par votre email)
             fetch(this.action, {
                 method: 'POST',
                 body: new FormData(this),

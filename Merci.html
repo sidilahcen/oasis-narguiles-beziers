@@ -1,26 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Merci !</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merci pour votre réservation - L'Oasis Béziers</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
             padding: 50px;
             background-color: #f9f9f9;
+            max-width: 800px;
+            margin: 0 auto;
         }
         h1 {
             color: #e67e22;
+            margin-bottom: 20px;
         }
-        a {
-            color: #e67e22;
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        .confirmation-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .home-button {
+            display: inline-block;
+            background: #e67e22;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
             text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .home-button:hover {
+            background: #d35400;
         }
     </style>
 </head>
 <body>
-    <h1>Merci pour votre réservation !</h1>
-    <p>Nous vous confirmons par SMS sous 30 minutes.</p>
-    <p><a href="index.html">← Retour à l'accueil</a></p>
-</body>
-</html>
+    <div class="confirmation-box">
+        <h1>Merci pour votre réservation !</h1>
+        <p>Nous avons bien reçu votre demande de réservation pour une chicha à L'Oasis.</p>
+        <p>Vous recevrez une confirmation par SMS sous 30 minutes.</p>
+        <p>À bientôt dans notre établissement !</p>
+        
+        <a href="index.html" class="home-button">Retour à l'accueil</a

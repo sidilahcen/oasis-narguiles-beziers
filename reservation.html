@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Réservation Chicha - L'Oasis Béziers</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -37,6 +36,7 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
+            box-sizing: border-box;
         }
         button {
             background: #e67e22;
@@ -47,6 +47,7 @@
             cursor: pointer;
             font-size: 16px;
             width: 100%;
+            transition: background 0.3s;
         }
         button:hover {
             background: #d35400;
@@ -76,6 +77,7 @@
             border-radius: 5px;
             cursor: pointer;
             width: calc(50% - 20px);
+            transition: all 0.3s;
         }
         .model-option:hover {
             border-color: #e67e22;
@@ -90,16 +92,23 @@
             object-fit: cover;
             border-radius: 3px;
         }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <h1>Réserver votre chicha</h1>
     
     <div class="reservation-form">
-        <form id="chicha-reservation" action="https://formsubmit.io/send/oasis.chicha@gmail.com" method="POST">
-            <input type="hidden" name="_redirect" value="https://sidilahcen.github.io/oasis-narguiles-beziers-/merci.html">
+        <form id="chicha-reservation" action="https://formsubmit.co/oasis.chicha@gmail.com" method="POST">
+            <input type="hidden" name="_next" value="https://sidilahcen.github.io/oasis-narguiles-beziers-/merci.html">
             <input type="hidden" name="_subject" value="Nouvelle réservation L'Oasis">
-            
+            <input type="text" name="_honey" style="display:none">
+
             <div class="form-group">
                 <label for="name">Votre nom *</label>
                 <input type="text" id="name" name="name" required>
@@ -112,7 +121,7 @@
             
             <div class="form-group">
                 <label for="date">Date de réservation *</label>
-                <input type="text" id="date" name="date" class="calendar" placeholder="Choisir une date" required>
+                <input type="date" id="date" name="date" required>
             </div>
             
             <div class="form-group">
@@ -153,6 +162,7 @@
                 </div>
                 <input type="hidden" id="model" name="model" required>
                 <div id="price" class="price-display"></div>
+                <div id="model-error" class="error-message">Veuillez sélectionner un modèle</div>
             </div>
             
             <div class="form-group">
@@ -177,6 +187,7 @@
                         <option value="pêche">Pêche</option>
                     </select>
                 </div>
+                <div id="flavor-error" class="error-message">Veuillez sélectionner au moins un goût</div>
             </div>
             
             <div class="form-group">
@@ -188,22 +199,7 @@
         </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
     <script>
-        // Configuration du calendrier
-        flatpickr(".calendar", {
-            locale: "fr",
-            minDate: "today",
-            maxDate: new Date().fp_incr(14), // 2 semaines à l'avance
-            disable: [
-                function(date) {
-                    // Désactiver les lundis
-                    return (date.getDay() === 1);
-                }
-            ]
-        });
-
         // Gestion des modèles
         const modelOptions = document.querySelectorAll('.model-option');
         let selectedModel = null;
@@ -215,23 +211,34 @@
                 selectedModel = this;
                 document.getElementById('model').value = this.dataset.value;
                 document.getElementById('price').textContent = 'Prix : ' + this.dataset.price + '€';
+                document.getElementById('model-error').style.display = 'none';
             });
         });
 
         // Validation du formulaire
         document.getElementById('chicha-reservation').addEventListener('submit', function(e) {
+            let isValid = true;
+            
+            // Vérification modèle
             if (!selectedModel) {
-                e.preventDefault();
-                alert('Veuillez sélectionner un modèle de chicha');
-                return;
+                document.getElementById('model-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('model-error').style.display = 'none';
             }
             
-            // Vérification qu'au moins un goût est sélectionné
+            // Vérification goût
             const flavor1 = document.getElementById('flavor1').value;
             if (!flavor1) {
+                document.getElementById('flavor-error').style.display = 'block';
+                isValid = false;
+            } else {
+                document.getElementById('flavor-error').style.display = 'none';
+            }
+            
+            if (!isValid) {
                 e.preventDefault();
-                alert('Veuillez sélectionner au moins un goût principal');
-                return;
+                window.scrollTo(0, 0);
             }
         });
     </script>

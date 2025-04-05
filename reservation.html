@@ -125,9 +125,10 @@
     <h1>Réserver votre chicha</h1>
     
     <div class="reservation-form">
-        <form id="chicha-reservation" action="https://formsubmit.co/oasis.chicha@gmail.com" method="POST">
+        <form id="chicha-reservation" action="https://formsubmit.co/ajax/oasis.chicha@gmail.com" method="POST">
             <input type="hidden" name="_next" value="https://sidilahcen.github.io/oasis-narguiles-beziers-/merci.html">
             <input type="hidden" name="_subject" value="Nouvelle réservation L'Oasis">
+            <input type="hidden" name="_template" value="box">
             <input type="text" name="_honey" style="display:none">
 
             <div class="form-group">
@@ -253,8 +254,10 @@
             });
         });
 
-        // Validation du formulaire
+        // Gestion du formulaire avec AJAX
         document.getElementById('chicha-reservation').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
             let isValid = true;
             
             // Vérification modèle
@@ -275,9 +278,29 @@
             }
             
             if (!isValid) {
-                e.preventDefault();
                 window.scrollTo(0, 0);
+                return;
             }
+
+            // Envoi AJAX
+            fetch(this.action, {
+                method: 'POST',
+                body: new FormData(this),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = 'merci.html';
+                } else {
+                    alert("Une erreur s'est produite. Veuillez nous appeler au 06 17 10 04 45");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Problème de connexion. Veuillez réessayer.");
+            });
         });
     </script>
 </body>

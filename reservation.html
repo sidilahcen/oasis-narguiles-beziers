@@ -6,32 +6,6 @@
     <title>Réservation Chicha - L'Oasis Béziers</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
-        <script>
-document.getElementById('chicha-reservation').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  // Validation existante...
-
-  // Envoi à Telegram
-  const response = await fetch('VOTRE_URL_SCRIPT_GOOGLE', {
-    method: 'POST',
-    body: JSON.stringify({
-      phone: document.getElementById('phone').value,
-      date: document.getElementById('date').value,
-      time: document.getElementById('time').value,
-      model: document.getElementById('model').value
-    }),
-    headers: { 'Content-Type': 'application/json' }
-  });
-
-  const result = await response.json();
-  if (result.success) {
-    window.location.href = "merci.html?telegram=1";
-  } else {
-    alert("Erreur : " + (result.error || "Échec de la confirmation"));
-  }
-});
-</script>
         body {
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
@@ -144,6 +118,11 @@ document.getElementById('chicha-reservation').addEventListener('submit', async f
             margin-top: 5px;
             font-style: italic;
         }
+        #loader {
+            display: none;
+            text-align: center;
+            margin: 20px;
+        }
     </style>
 </head>
 <body>
@@ -244,6 +223,7 @@ document.getElementById('chicha-reservation').addEventListener('submit', async f
                 <textarea id="notes" name="notes" rows="3" placeholder="Nombre de personnes, préférences particulières..."></textarea>
             </div>
             
+            <div id="loader">Envoi en cours...</div>
             <button type="submit">Réserver maintenant</button>
         </form>
     </div>
@@ -280,53 +260,65 @@ document.getElementById('chicha-reservation').addEventListener('submit', async f
             });
         });
 
-        // Gestion du formulaire avec AJAX
-        document.getElementById('chicha-reservation').addEventListener('submit', function(e) {
+        // Gestion du formulaire
+        document.getElementById('chicha-reservation').addEventListener('submit', async function(e) {
             e.preventDefault();
             
+            // Validation
             let isValid = true;
-            
-            // Vérification modèle
             if (!selectedModel) {
                 document.getElementById('model-error').style.display = 'block';
                 isValid = false;
-            } else {
-                document.getElementById('model-error').style.display = 'none';
             }
             
-            // Vérification goût
             const flavor1 = document.getElementById('flavor1').value;
             if (!flavor1) {
                 document.getElementById('flavor-error').style.display = 'block';
                 isValid = false;
-            } else {
-                document.getElementById('flavor-error').style.display = 'none';
             }
             
-            if (!isValid) {
-                window.scrollTo(0, 0);
-                return;
-            }
+            if (!isValid) return;
 
-            // Envoi AJAX
-            fetch(this.action, {
-                method: 'POST',
-                body: new FormData(this),
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = 'merci.html';
-                } else {
-                    alert("Une erreur s'est produite. Veuillez nous appeler au 06 17 10 04 45");
-                }
-            })
-            .catch(error => {
+            // Afficher le loader
+            document.getElementById('loader').style.display = 'block';
+
+            try {
+                // 1. Envoi à FormSubmit (backup)
+                const formData = new FormData(this);
+                const formSubmitResponse = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!formSubmitResponse.ok) throw new Error("FormSubmit failed");
+
+                // 2. Envoi à Google Apps Script (pour Telegram)
+                const googleScriptUrl = "https://script.google.com/macros/s/YOUR_GOOGLE_SCRIPT_ID/exec";
+                const scriptResponse = await fetch(googleScriptUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: formData.get('name'),
+                        phone: formData.get('phone'),
+                        date: formData.get('date'),
+                        time: formData.get('time'),
+                        model: formData.get('model'),
+                        flavor1: formData.get('flavor1'),
+                        flavor2: formData.get('flavor2'),
+                        notes: formData.get('notes')
+                    })
+                });
+
+                // Redirection après succès
+                window.location.href = 'merci.html';
+
+            } catch (error) {
                 console.error('Error:', error);
-                alert("Problème de connexion. Veuillez réessayer.");
-            });
+                alert("Réservation envoyée, mais notification non confirmée. Contactez-nous au 06 17 10 04 45 si besoin.");
+            } finally {
+                document.getElementById('loader').style.display = 'none';
+            }
         });
     </script>
 </body>
